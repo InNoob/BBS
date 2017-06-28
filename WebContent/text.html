@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<!--<script src="resource/ckeditor/ckeditor.js"></script>
+	<script src="resource/ckeditor/config.js"></script>-->
+	<script type="text/javascript">
+	function checkin(){
+		alert(document.getElementById('text1').innerHTML);
+	}
+	</script>
+	<script type="text/javascript">
+	function add(){
+		
+		// document.getElementById('text1').innerHTML+="<a href='resource/image/test.jpg' class='bkg'></a>"+"a";
+		var sel = win.document.selection; //IE  
+		var sel = win.getSelection(); //DOM  
+		
+		var range = sel.createRange(); // IE下  
+		var range = sel.getRangeAt(0); // DOM下  
+		
+		if(range.startContainer){ // DOM下  
+			sel.removeAllRanges(); // 删除Selection中的所有Range  
+			range.deleteContents(); // 清除Range中的内容  
+			// 获得Range中的第一个html结点  
+			var container = range.startContainer;  
+			// 获得Range起点的位移  
+			var pos = range.startOffset;  
+			// 建一个空Range  
+			range = document.createRange();  
+			// 插入内容  
+			var cons = win.document.createTextNode(",:),");  
+			
+			if(container.nodeType == 3){// 如是一个TextNode  
+				container.insertData(pos, cons.nodeValue);  
+				// 改变光标位置  
+				range.setEnd(container, pos + cons.nodeValue.length);  
+				range.setStart(container, pos + cons.nodeValue.length);  
+			}else{// 如果是一个HTML Node  
+				var afternode = container.childNodes[pos];  
+				container.insertBefore(cons, afternode);  
+				
+				range.setEnd(cons, cons.nodeValue.length);  
+				range.setStart(cons, cons.nodeValue.length);  
+			}  
+			sel.addRange(range);  
+		}else{// IE下  
+			var cnode = range.parentElement();  
+			while(cnode.tagName.toLowerCase() != “body”){  
+				cnodecnode = cnode.parentNode;  
+			}  
+			if(cnode.id && cnode.id==”rich_txt_editor”){  
+				range.pasteHTML(",:),");  
+			}  
+		}  
+		win.focus();  
+	}
+	</script>
+	<script type="text/javascript">
+	function edit(){
+		if(document.getElementById('text1').contentEditable=="false"){
+			document.getElementById('text1').contentEditable=true;
+			document.getElementById('text1').className="editing";
+		}else{
+			document.getElementById('text1').contentEditable=false;
+			document.getElementById('text1').className="";
+		}
+		
+	}
+	</script>
+	<style>
+	.bkg{
+		width: 200px;
+		height: 100px;
+		background: url('resource/image/test.jpg') no-repeat center;
+		background-size: 100%;
+		display:inline-block; 
+	}
+	.editing{
+		border: 1px solid dodgerblue;
+	}
+	</style>
+</head>
+<body>
+	<div contenteditable="false" id="text1" style="width:600px;height:300px">
+		hello <a href="resource/image/test.jpg" class="bkg"></a> world
+	</div>
+	<!--<textarea name="" id="text1" cols="30" rows="10" class="ckeditor">
+	</textarea>-->
+	<input type="button" value="edit" onclick="edit();">
+	<input type="button" value="find" onclick="checkin();">
+	<input type="button" value="addpic" onclick="add();">
+
+</body>
+<!--<script type="text/javascript">
+	CKEDITOR.replace('text1');
+</script>-->
+</html>
