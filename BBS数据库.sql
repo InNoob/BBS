@@ -256,7 +256,16 @@ as
 	end try
 	begin catch
 		select Error_number()
+			Error_severity()
+			Error_state()
+			Error_Procedure()
+			Error_line()
+			Error_message()
+		if(@@trancount>0)
+			rollback tran
 	end catch
+	if(@@trancount>0)
+		commit tran
 
 go
 
