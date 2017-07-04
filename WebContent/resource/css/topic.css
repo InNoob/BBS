@@ -1,0 +1,103 @@
+@charset 'utf-8';
+
+/*这是帖子的容器样式*/
+.container{
+    width:960px;
+    margin: 0 auto;
+    border: 1px solid #E1E5EE;
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*一行帖子样式*/
+.topic-rows{
+    height: 80px;
+    margin: 0 10px;
+    border-bottom:1px solid #E1E5EE;
+}
+.topic-rows:hover{
+    /*background-color: rgba(0,255,255,0.02);*/
+    background-color: #F7F8FB;
+}
+
+/*用户头像*/
+.topic-headimg{
+    height: 60px;
+    width: 60px;
+    float: left;
+    border-radius: 30px;
+    margin: 10px 20px;
+    overflow: hidden;
+}
+/*用户头像链接*/
+.topic-headimg a{
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: url('resource/image/default.png') no-repeat center  ;
+    background-size: 100%;
+}
+
+/*帖子标题和信息*/
+.topic-content{
+    height:  80px;
+    float: left;
+}
+
+/*标题*/
+.topic-title{
+    height: 20px;
+    margin: 13px 0;
+    font-size: 18px;
+    /*float: left;*/
+}
+/*标题链接样式*/
+.topic-title:hover{
+    text-decoration: underline;
+}
+
+.topic-title a{
+    text-decoration: none;
+    color: #232A3C;
+
+}
+.topic-block{
+    float: left;
+    border-radius: 5px;
+    padding: 0 5px;
+    font-size: 14px;
+    background-color: #EDf0f5;
+}
+.topic-block a{
+    text-decoration: none;
+    color: #3874a9 !important;
+}
+.topic-block a:hover{
+    text-decoration: underline;
+}
+.topic-count{
+    height: 18px;
+    line-height: 18px;
+    margin: 31px 20px;
+    padding: 0 8px;
+    border-radius: 10px;
+    background-color: #96A7C4;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    float: right;
+}
+.topic-count a{
+    height: 100%;
+    line-height: 1.4em;
+    color: #ffffff;
+    display: block;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+.topic-count a:hover{
+    text-decoration: underline;
+}
+.topic-details{
+
+}

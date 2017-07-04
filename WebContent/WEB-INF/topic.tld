@@ -11,5 +11,33 @@
 	<attribute>
 		<name>title</name>
 	</attribute>
+	<attribute>
+		<name>titleUrl</name>
+	</attribute>
+	<attribute>
+		<name>headimg</name>
+	</attribute>
+	<attribute>
+		<name>block</name>
+	</attribute>
+	<attribute>
+		<name>blockUrl</name>
+	</attribute>
+	<attribute>
+		<name>tpcUname</name>
+	</attribute>
+	<attribute>
+		<name>tpcTime</name>
+	</attribute>
+	<attribute>
+		<name>rcvUname</name>
+	</attribute>
+	<attribute>
+		<name>rcvTime</name>
+	</attribute>
+	<attribute>
+		<name>count</name>
+	</attribute>
+	
   </tag>
 </taglib>
