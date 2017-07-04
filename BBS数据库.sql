@@ -124,6 +124,7 @@ create table reciveUnread
 	--这个是回帖id
 	[rid] int not null references recive(rid)
 )
+go
 
 --评论表
 create table evaluat
@@ -209,6 +210,7 @@ create table message
 	--备注
 	[tag] nvarchar(256)
 )
+go
 
 --未读消息表
 create table messageUnread
@@ -220,50 +222,135 @@ create table messageUnread
 	--消息id 
 	[mid] int not null references message(mid)
 )
+go
+
+
+
+
+--发出一条帖子的存储过程
+
+go
+drop proc proc_creatTopic
+go
+create proc proc_creatTopic
+(@bid int,@uid int,@title nvarchar(128)
+,@attach nvarchar(256),@tag nvarchar(128))
+as
+	insert into topic values
+	(@bid,@uid,@title,default,0,0,@attach,@tag)
+go
+
+
+--回复一条帖子的存储过程
+go
+drop proc proc_creatRecive
+go
+create proc proc_creatRecive
+(@bid int,@tid int,@uid int,@content ntext
+,@attach nvarchar(256),@tag nvarchar(128))
+as
+	begin tran
+	begin try
+		insert into recive values
+		()
+	end try
+	begin catch
+		select Error_number()
+	end catch
+
+go
+
+
+
+
+
+
+
+
 
 --添加用户
-insert into userinfo values('jason bourne','287276013','resource/image/headimg.png',1,100,N'我思故我在',default,null)
-insert into userinfo values('well smith','123456','resource/image/headimg.png',2,551,N'我思故我在',default,null)
-insert into userinfo values('winter worth','11111','resource/image/headimg.png',3,1107,N'我思故我在',default,null)
-insert into userinfo values('micole jackson','0000000','resource/image/headimg.png',4,2571,N'我思故我在',default,null)
+insert into userinfo values
+('jason bourne','287276013','resource/image/headimg.png'
+,1,100,N'我思故我在',default,null)
+insert into userinfo values
+('well smith','123456','resource/image/headimg.png'
+,2,551,N'我思故我在',default,null)
+insert into userinfo values
+('winter worth','11111','resource/image/headimg.png'
+,3,1107,N'我思故我在',default,null)
+insert into userinfo values
+('micole jackson','0000000','resource/image/headimg.png'
+,4,2571,N'我思故我在',default,null)
 go
+
 --添加版块 标题 状态码 时间 备注
 insert into block values(N'技术交流',1,default,null)
 insert into block values(N'日常生活',1,default,null)
 go
+
 --添加版块管理员 bid uid verify stat
 insert into blockmanager values(1,1000,1,1)
 insert into blockmanager values(1,1001,0,1)
 insert into blockmanager values(2,1002,1,1)
 go
+
 --添加帖子               bid uid title toptime great stat attach tag
-insert into topic values(1,1002,N'震惊！',default,5,0,null,null)
-insert into topic values(1,1003,N'男默女泪',default,1,0,null,null)
+insert into topic values
+(1,1002,N'震惊！',default,5,0,null,null)
+insert into topic values
+(1,1003,N'男默女泪',default,1,0,null,null)
 go
+
 --添加回复                bid tid uid content rectime great attach tag
-insert into recive values(1,1,1000,N'狗主编',default,10086,null,null)
-insert into recive values(1,1,1001,N'狗东西',default,10086,null,null)
-insert into recive values(1,1,1000,N'狗主编',default,10086,null,null)
-insert into recive values(1,1,1000,N'狗主编',default,10086,null,null)
+insert into recive values
+(1,1,1000,N'狗主编',default,10086,null,null)
+insert into recive values
+(1,1,1001,N'狗东西',default,10086,null,null)
+insert into recive values
+(1,1,1000,N'狗主编',default,10086,null,null)
+insert into recive values
+(1,1,1000,N'狗主编',default,10086,null,null)
 go
+
 --添加未读回复                   uid tid rid
 insert into reciveUnread values(1002,1,1)
 insert into reciveUnread values(1002,1,2)
 go
-insert into evaluat values(1001,1,1,1,N'骂得好',default,1000,null,null)
-insert into evaluat values(1003,1,1,1,N'没错',default,1000,null,null)
-go
-insert into evaluatUnread values(1000,1,1)
-go
-insert into revaluat values(2,1,1001)
-go
-insert into revaluatUnread values(1001,1)
+
+--添加评论数               uid bid tid rid content evatime great attach tag
+insert into evaluat values
+(1001,1,1,1,N'骂得好',default,1000,null,null)
+insert into evaluat values
+(1003,1,1,1,N'没错',default,1000,null,null)
+insert into evaluat values
+(1002,1,1,1,N'就是就是',default,1000,null,null)
+insert into evaluat values
+(1000,1,1,1,N'恩',default,1000,null,null)
 go
 
-insert into message values(1003,1002,N'来UC震惊部上班吧',default,null)
+--添加未读评论 				   uid rid eid
+insert into evaluatUnread values(1000,1,1)
 go
+
+--添加回复评论  			meid beid beuid
+insert into revaluat values(2,1,1001)
+insert into revaluat values(3,1,1001)
+go
+
+--添加未读回复评论					uid reid
+insert into revaluatUnread values(1001,1)
+insert into revaluatUnread values(1001,2)
+go
+
+--添加消息 					sender reciver content sendtime tag
+insert into message values
+(1003,1002,N'来UC震惊部上班吧',default,null)
+go
+
+--添加未读 						uid mid
 insert into messageUnread values(1002,1)
 go
+
 
 -- select * from userinfo
 -- select * from block
@@ -278,34 +365,64 @@ go
 -- select * from message
 -- select * from messageUnread
 
---判断用户登陆
+-- -- 判断用户登陆
 -- select 1 from userinfo where username = 'xxx' and password = 'xxx'
+
 -- --用户登陆时检查自己的未读消息数量
 
 -- select count(1) from reciveUnread where uid = 1
 -- select count(1) from evaluatUnread where uid = 1
 -- select count(1) from revaluatUread where uid = 1
 -- select count(1) from messageUread where uid = 1
--- --当用户点击未读消息的时候查询未读的消息
+
+
+
+
+--当用户点击未读消息的时候查询未读的消息
+
 print N'----------未查看的回帖--------------'
 select su.username as N'发送者',re.username as N'接受者' 
-,r.content as N'正文'
+,t.title as N'你的帖子标题',r.content as N'回帖'
 from recive as r 
 inner join reciveUnread as ru on r.rid = ru.rid 
+inner join topic as t on t.tid = ru.tid
 inner join userinfo as su on r.uid = su.uid
 inner join userinfo as re on ru.uid = re.uid
 where ru.uid = 1002
 
 print N'----------未查看的评论------------'
-select  
+select su.username as N'发送者',re.username as N'接受者'
+,r.content as '你的回帖',e.content as N'回复'
 from evaluat as e
-inner join evaluatUnread as e
+inner join evaluatUnread as eu on e.eid = eu.eid
+inner join recive as r on r.rid = eu.rid
+inner join userinfo as su on e.uid = su.uid
+inner join userinfo as re on eu.uid = re.uid
+where eu.uid = 1000
 
 
+print N'----------未查看的回复------------'
+select su.username as N'发送者',re.username as N'接受者'
+,be.content as '你的评论',me.content as N'回复'
+from revaluat as r
+inner join revaluatUnread as ru on r.reid= ru.reid
+inner join evaluat as me on r.meid = me.eid
+inner join evaluat as be on r.beid = be.eid
+inner join userinfo as su on me.uid = su.uid
+inner join userinfo as re on be.uid = re.uid
+where ru.uid = 1001
+
+print N'------------未查看的消息--------------'
+select se.username as N'发送者',re.username as N'接受者'
+,m.content as N'正文'
+from message as m 
+inner join messageUnread as mu on m.mid = mu.mid
+inner join userinfo as se on m.sender = se.uid
+inner join userinfo as re on m.reciver = re.uid
+where mu.uid = 1002
 
 
-
--- select e. from evaluat as e inner join evaluatUread as eu on e.rid = eu.rid where eu.uid = 1
--- select re. from revaluat as re inner join revaluatUnread as reu on re.rid = reu.rid where reu.uid = 1
--- select m. from message as m inner join messageUread as mu on m.rid = mu.rid where mu.uid = 1
+--根据topic 查询所有的回帖信息
+select 
+from 
 
