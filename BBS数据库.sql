@@ -15,9 +15,17 @@ create table userinfo
 	--用户id
 	[uid] int not null identity(1000,1) primary key,
 	--用户名
-	[username] nvarchar(32) not null,
+	[username] nvarchar(16) not null,
 	--密码
 	[password] varchar(16) not null,
+	--性别
+	[gender] int not null default(0),
+	--生日
+	[birthday] datetime default(getdate()),
+	--电话
+	[phone] bigint,
+	--邮箱
+	[email] nvarchar(32),
 	--用户头像
 	[headimg] nvarchar(256) not null,
 	--用户等级
@@ -207,8 +215,10 @@ create table message
 	[content] ntext not null,
 	--发送时间
 	[sendtime] datetime default(getdate()),
+	--附件
+	[attachment] nvarchar(256),
 	--备注
-	[tag] nvarchar(256)
+	[tag] nvarchar(128)
 )
 go
 
@@ -246,32 +256,122 @@ go
 drop proc proc_creatRecive
 go
 create proc proc_creatRecive
-(@bid int,@tid int,@uid int,@content ntext
+(@bid int,@tid int,@sender int,@reciver int,@content ntext
 ,@attach nvarchar(256),@tag nvarchar(128))
 as
 	begin tran
 	begin try
 		insert into recive values
-		()
+		(@bid,@tid,@sender,@content,default,0,@attach,@tag)
+		insert into reciveUnread values
+		(@reciver,@tid,CONVERT(int ,IDENT_CURRENT('recive')))
 	end try
 	begin catch
-		select Error_number()
-			Error_severity()
-			Error_state()
-			Error_Procedure()
-			Error_line()
-			Error_message()
+		select Error_number() as N'错误代码'
+			,Error_severity() as N'严重级别'
+			,Error_state() as N'状态码'
+			,Error_Procedure() as N'产生'
+			,Error_line() as N'行数'
+			,Error_message() as N'消息'
 		if(@@trancount>0)
 			rollback tran
 	end catch
 	if(@@trancount>0)
 		commit tran
+go
 
+
+--评论一条回帖的存储过程
+go
+drop proc proc_creatEvaluat
+go
+create proc proc_creatEvaluat
+(@bid int,@tid int,@rid int,@sender int,@reciver int
+,@content ntext,@attach nvarchar(256),@tag nvarchar(128))
+as
+	begin tran
+	begin try
+		insert into evaluat values
+		(@sender,@bid,@tid,@rid,@content,default,0,@attach,@tag)
+		insert into evaluatUnread values
+		(@reciver,@rid,CONVERT(int ,IDENT_CURRENT('evaluat')))
+	end try
+	begin catch
+		select Error_number() as N'错误代码'
+			,Error_severity() as N'严重级别'
+			,Error_state() as N'状态码'
+			,Error_Procedure() as N'产生'
+			,Error_line() as N'行数'
+			,Error_message() as N'消息'
+		if(@@trancount>0)
+			rollback tran
+	end catch
+	if(@@trancount>0)
+		commit tran
 go
 
 
 
+--评论一条回帖的存储过程
+go
+drop proc proc_creatRevaluat
+go
+create proc proc_creatRevaluat
+(@bid int,@tid int,@rid int,@beid int,@sender int,@reciver int
+,@content ntext,@attach nvarchar(256),@tag nvarchar(128))
+as
+	begin tran
+	begin try
+		insert into evaluat values
+		(@sender,@bid,@tid,@rid,@content,default,0,@attach,@tag)
+		insert into revaluat values
+		(CONVERT(int,IDENT_CURRENT('evaluat')),@beid,@reciver)
+		insert into revaluatUnread values
+		(@reciver,CONVERT(int ,IDENT_CURRENT('revaluat')))
+	end try
+	begin catch
+		select Error_number() as N'错误代码'
+			,Error_severity() as N'严重级别'
+			,Error_state() as N'状态码'
+			,Error_Procedure() as N'产生'
+			,Error_line() as N'行数'
+			,Error_message() as N'消息'
+		if(@@trancount>0)
+			rollback tran
+	end catch
+	if(@@trancount>0)
+		commit tran
+go
 
+
+--评论一条回帖的存储过程
+go
+drop proc proc_creatMessage
+go
+create proc proc_creatMessage
+(@sender int,@reciver int,@content ntext
+,@attach nvarchar(256),@tag nvarchar(128))
+as
+	begin tran
+	begin try
+		insert into message values
+		(@sender,@reciver,@content,default,@attach,@tag)
+		insert into messageUnread values
+		(@reciver,CONVERT(int ,IDENT_CURRENT('message')))
+	end try
+	begin catch
+		select Error_number() as N'错误代码'
+			,Error_severity() as N'严重级别'
+			,Error_state() as N'状态码'
+			,Error_Procedure() as N'产生'
+			,Error_line() as N'行数'
+			,Error_message() as N'消息'
+		if(@@trancount>0)
+			rollback tran
+	end catch
+	if(@@trancount>0)
+		commit tran
+go
 
 
 
@@ -279,17 +379,17 @@ go
 
 --添加用户
 insert into userinfo values
-('jason bourne','287276013','resource/image/headimg.png'
-,1,100,N'我思故我在',default,null)
+('jason bourne','287276013',0,default,null,null
+,'resource/image/headimg.png',1,100,N'我思故我在',default,null)
 insert into userinfo values
-('well smith','123456','resource/image/headimg.png'
-,2,551,N'我思故我在',default,null)
+('well smith','123456',0,default,null,null
+,'resource/image/headimg.png',2,551,N'我思故我在',default,null)
 insert into userinfo values
-('winter worth','11111','resource/image/headimg.png'
-,3,1107,N'我思故我在',default,null)
+('winter worth','11111',0,default,null,null
+,'resource/image/headimg.png',3,1107,N'我思故我在',default,null)
 insert into userinfo values
-('micole jackson','0000000','resource/image/headimg.png'
-,4,2571,N'我思故我在',default,null)
+('micole jackson','0000000',0,default,null,null
+,'resource/image/headimg.png',4,2571,N'我思故我在',default,null)
 go
 
 --添加版块 标题 状态码 时间 备注
@@ -353,7 +453,7 @@ go
 
 --添加消息 					sender reciver content sendtime tag
 insert into message values
-(1003,1002,N'来UC震惊部上班吧',default,null)
+(1003,1002,N'来UC震惊部上班吧',default,null,null)
 go
 
 --添加未读 						uid mid
@@ -432,6 +532,6 @@ where mu.uid = 1002
 
 
 --根据topic 查询所有的回帖信息
-select 
-from 
+-- select 
+-- from 
 
