@@ -114,14 +114,14 @@ public class TopicTag extends SimpleTagSupport{
 			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 			String fromDate = simpleFormat.format(simpleFormat.parse(rcvTime));
 			String toDate = simpleFormat.format(new Date());
-			long from = simpleFormat.parse(fromDate).getTime();  
-			long to = simpleFormat.parse(toDate).getTime();
-			this.rcvTime = (int)((to - from)/(1000 * 60 * 60 * 24 * 30 * 12))>0?((to - from)/(1000 * 60 * 60 * 24 * 30 * 12))+"年前":
-				(int)((to - from)/(1000 * 60 * 60 * 24 * 30 )) > 0 ? ((to - from)/(1000 * 60 * 60 * 24 * 30 ))+"月前" :
-					(int)((to - from)/(1000 * 60 * 60 * 24 )) > 0 ? ((to - from)/(1000 * 60 * 60 * 24 ))+"天前":
-						(int)((to - from)/(1000 * 60 * 60)) > 0 ? ((to - from)/(1000 * 60 * 60 ))+"小时前":
-							(int)((to - from)/(1000 * 60 )) > 0 ? ((to - from)/(1000 * 60 ))+"分钟前":
-								(int)((to - from)/(1000 )) > 0 ? ((to - from)/(1000 ))+"秒前" : "刚刚";
+			Date form = simpleFormat.parse(fromDate);
+			Date to = simpleFormat.parse(toDate);
+			this.rcvTime = to.getYear()-form.getYear() > 0 ? to.getYear()-form.getYear()+"年前":
+				to.getMonth()-form.getMonth() > 0 ? to.getMonth()-form.getMonth()+"个月前" :
+				to.getDay()-form.getDay() > 0 ? to.getDay()-form.getDay()+"天前" :
+				to.getHours()-form.getHours() > 0 ? to.getHours()-form.getHours()+"小时前" :
+				to.getMinutes()-form.getMinutes() > 0 ? to.getMinutes()-form.getMinutes()+"分钟前" :
+				to.getSeconds()-form.getSeconds() > 0 ? to.getSeconds()-form.getSeconds()+"秒前" : "刚刚";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

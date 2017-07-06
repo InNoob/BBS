@@ -54,9 +54,6 @@
     /*float: left;*/
 }
 /*标题链接样式*/
-.topic-title:hover{
-    text-decoration: underline;
-}
 
 /*帖子标题*/
 .topic-title a{
@@ -64,6 +61,10 @@
     color: #232A3C;
 
 }
+.topic-title a:hover{
+    text-decoration: underline;
+}
+
 /*帖子版块*/
 .topic-block{
     float: left;
