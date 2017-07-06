@@ -40,6 +40,17 @@ create table userinfo
 	[tag] nvarchar(128)
 )
 go
+--关注表
+create table care
+(
+	[cid] int not null identity(1,1) primary key,
+	--关注者
+	[me] int not null references userinfo(uid),
+	--被关注者
+	[who] int not null references userinfo(uid),
+	--备注
+	[tag] nvarchar(256)
+)
 
 --版块表
 create table block
@@ -87,6 +98,8 @@ create table topic
 	[toptime] datetime default(getdate()),
 	--点赞
 	[great] int,
+	--浏览次数
+	[viewer] int not null default(0),
 	--状态 用来标记是不是置顶贴或者精品贴
 	[stat] int default(0),
 	--附件
@@ -247,7 +260,7 @@ create proc proc_creatTopic
 ,@attach nvarchar(256),@tag nvarchar(128))
 as
 	insert into topic values
-	(@bid,@uid,@title,default,0,0,@attach,@tag)
+	(@bid,@uid,@title,default,0,default,0,@attach,@tag)
 go
 
 
@@ -405,9 +418,9 @@ go
 
 --添加帖子               bid uid title toptime great stat attach tag
 insert into topic values
-(1,1002,N'震惊！',default,5,0,null,null)
+(1,1002,N'震惊！',default,5,default,0,null,null)
 insert into topic values
-(1,1003,N'男默女泪',default,1,0,null,null)
+(1,1003,N'男默女泪',default,1,default,0,null,null)
 go
 
 --添加回复                bid tid uid content rectime great attach tag

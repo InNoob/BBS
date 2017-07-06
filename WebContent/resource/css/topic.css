@@ -24,6 +24,7 @@
     height: 60px;
     width: 60px;
     float: left;
+    /*display: inline-block;*/
     border-radius: 30px;
     margin: 10px 20px;
     overflow: hidden;
@@ -33,14 +34,16 @@
     width: 100%;
     height: 100%;
     display: block;
-    background: url('resource/image/default.png') no-repeat center  ;
+    background: url('../image/default.png') no-repeat center  ;
     background-size: 100%;
 }
 
 /*帖子标题和信息*/
 .topic-content{
+    width: 80%;
     height:  80px;
     float: left;
+    /*display: inline-block;*/
 }
 
 /*标题*/
@@ -55,11 +58,13 @@
     text-decoration: underline;
 }
 
+/*帖子标题*/
 .topic-title a{
     text-decoration: none;
     color: #232A3C;
 
 }
+/*帖子版块*/
 .topic-block{
     float: left;
     border-radius: 5px;
@@ -67,13 +72,28 @@
     font-size: 14px;
     background-color: #EDf0f5;
 }
+/*帖子版块链接*/
 .topic-block a{
     text-decoration: none;
     color: #3874a9 !important;
 }
+
+/*链接hover特效*/
 .topic-block a:hover{
     text-decoration: underline;
 }
+
+.topic-time{
+    height: 30px;
+    font-size: 14px;
+    color: gray;
+
+}
+.topic-time span{
+    margin: 10px;
+}
+
+/*回帖数量*/
 .topic-count{
     height: 18px;
     line-height: 18px;
@@ -86,6 +106,7 @@
     text-align: center;
     float: right;
 }
+/*回帖数量链接*/
 .topic-count a{
     height: 100%;
     line-height: 1.4em;
@@ -95,9 +116,91 @@
     text-align: center;
     text-decoration: none;
 }
+/*回帖数量链接特效*/
 .topic-count a:hover{
     text-decoration: underline;
 }
+/*个人详情*/
 .topic-details{
+    width: 160px;
+    height: 100px;
+    float: left;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: absolute;
+    text-align: center;
+    transform: translate3d(-30px,40px,0px);
+    background: rgba(174, 238, 238, 0.9);
+    /*background: rgba(00, 00, 00, 0.2);*/
+    display: none;
+    overflow: hidden;
+    /*border: 1px solid black;*/
+}
+.topic-headimg-box:hover>.topic-details{
+    display: block;
+} 
+/* 详细信息内的头像 */
+.topic-innerimg{
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    /*display: inline-block;*/
+    border-radius: 30px;
+    overflow: hidden;
+    transform: translate3d(50px,-30px,0);
 
+}
+.topic-innerimg a{
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: url('../image/default.png') no-repeat center  ;
+    background-size: 100%;
+}
+
+.topic-level{
+    margin: 10px 0 0 8px;
+    float: left;
+}
+.topic-name{
+    margin-top: 30px;
+}
+.topic-markbar{
+    height: 12px;
+    position: absolute;
+    background-color: pink;
+    z-index: 1;
+}
+.topic-mark{
+    width: 100%;
+    line-height: 12px;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    z-index: 2;
+}
+.topic-markbox{
+    margin: 5px 0 7px 0;
+    height: 12px;
+    background-color:skyblue;
+    /*border: 1px solid dodgerblue;*/
+}
+.topic-details span{
+    display: block;
+
+}
+.topic-details button{
+    margin: 0;
+    outline: 0;
+    color: black;
+    border: 1px solid dodgerblue;
+    transition: 0.1s;
+    cursor: pointer;
+    background: transparent;
+    display: inline-block;
+}
+.topic-details button:hover{
+    color: white;
+    background: skyblue;
+    display: inline-block;
 }

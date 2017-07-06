@@ -9,10 +9,22 @@
     <tag-class>com.tag.TopicTag</tag-class>
     <body-content>empty</body-content>
 	<attribute>
-		<name>title</name>
+		<name>uid</name>
 	</attribute>
 	<attribute>
-		<name>titleUrl</name>
+		<name>tid</name>
+	</attribute>
+	<attribute>
+		<name>bid</name>
+	</attribute>
+	<attribute>
+		<name>mark</name>
+	</attribute>
+	<attribute>
+		<name>level</name>
+	</attribute>
+	<attribute>
+		<name>title</name>
 	</attribute>
 	<attribute>
 		<name>headimg</name>
@@ -21,16 +33,10 @@
 		<name>block</name>
 	</attribute>
 	<attribute>
-		<name>blockUrl</name>
-	</attribute>
-	<attribute>
 		<name>tpcUname</name>
 	</attribute>
 	<attribute>
 		<name>tpcTime</name>
-	</attribute>
-	<attribute>
-		<name>rcvUname</name>
 	</attribute>
 	<attribute>
 		<name>rcvTime</name>
