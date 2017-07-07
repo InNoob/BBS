@@ -51,6 +51,15 @@ create table care
 	--备注
 	[tag] nvarchar(256)
 )
+--收藏表
+create table favourite
+(
+	[fid] int not null identity(1,1) primary key,
+	--关注者
+	[uid] int not null references userinfo(uid),
+	--帖子
+	[tid] int not null references topic(tid) 
+)
 
 --版块表
 create table block
