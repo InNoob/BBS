@@ -6,46 +6,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="resource/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="resource/css/myreset.css">
     <link rel="stylesheet" type="text/css" href="resource/css/topic.css">
+    <script type="text/javascript" src="resource/js/topic.js"></script>
     <script type="text/javascript">
-        // 这个函数用来做所有对象的事件绑定，做了浏览器兼容，支持多事件绑定，
-        function AddListener(element,event,handle){
-            try {
-                // 支持firefox chrome ie9+ opera safari edge
-                element.addEventListener(event,handle,false);
-            } catch (error) {
-                try {
-                    // 支持ie8765
-                    element.attachEvent('on'+event,headle);
-                } catch (error) {
-                    // 支持远古浏览器但不支持多事件绑定
-                    element['on'+event]=handle;
+        AddListener(window,'scroll',function () {
+            var top = document.getElementById('topcontainer');
+            var logo =document.getElementById('logo');
+            if(window.scrollY>60){
+                top.className='top-scroll';
+                logo.className='top-logoscroll';
+                for(var i=0;i<document.getElementsByClassName('top-blockinfo').length;++i){
+                    document.getElementsByClassName('top-blockinfo')[i].className = 'top-blockinfoscroll';
+                }
+            }else{
+                top.className='top-container';
+                logo.className='top-logo';
+                // var e = document.getElementsByClassName('top-blockinfoscroll');
+                for(var i=0;i<document.getElementsByClassName('top-blockinfoscroll').length;++i){
+                    document.getElementsByClassName('top-blockinfoscroll')[i].className = 'top-blockinfo';
                 }
             }
-        }
-        var server;
-        
-        // onreadystatchange的回调控制器
-        function loadAjax(url,method,callback){
-            if(window.XMLHttpRequest)
-                server = new XMLHttpRequest();
-            else
-                server = new ActiveXObject('Microsoft.XMLHTTP');
-            AddListener(server,'readystatechange',callback);
-            server.open(method,url,true);
-            server.send();
-        }
-        function takeCare(){
-            loadAjax('text.txt','GET',function () {
-                if(server.readyState== 4&&server.status== 200)
-                document.getElementById('takecare').innerText = server.responseText;
-            });
-        }
+        })
     </script>
 </head>
 
 <body>
+    <div id="topcontainer" class="top-container">
+        <div class="top-panel">
+            <div id="logo" class="top-logo">
+                <font color="orangered" >B</font>
+                <font color="gold">o</font>
+                <font color="orangered">B</font>
+                <font color="gold">o</font>
+                <font color="dodgerblue">S</font>
+                <font color="limegreen">i</font>
+            </div>
+            <div class="top-blockbox">
+                <div id="top-block-technology" class="top-blockinfo">
+                    <a href="#"><span>技术交流</span></a>
+                    <span>发帖：999</span>
+                </div>
+                <div id="top-block-dailylife" class="top-blockinfo">
+                    <a href="#"><span>日常生活</span></a>
+                    <span>发帖：999</span>
+                </div>
+                <div id="top-block-resource" class="top-blockinfo">
+                    <a href="#"><span>资源分享</span></a>
+                    <span>发帖：999</span>
+                </div>
+                <div id="top-block-official" class="top-blockinfo">
+                    <a href="#"><span>官方公告</span></a>
+                    <span>发帖：999</span>
+                </div>
+            </div>
+            <div class="top-headimgbox" style="display:none">
+                <div class="top-headimg ">
+                    <a href="#"> <img src="resource/image/headimg.png" alt=""></a>
+                </div>
+                <span class="top-unread">9</span>
+                <div class="top-outuserinfo">
+                    <div class="top-userinfo">
+                        <div class="top-headimg top-innerheadimg">
+                            <a href="#"> <img src="resource/image/headimg.png" alt=""></a>
+                        </div>
+                        <b>祈雨芊叶</b>
+                        <div style="width:87%;margin:20px auto;text-align:left">
+                            <span style="text-align:left">发帖：9999</span>
+                            <span style="width:66%;text-align:right">回帖：9999</span>
+                        </div>
+                        <div class="top-mark">
+                            <span>等级</span>
+                            <span class="top-level" style="background-position:-153px -44px;"></span>
+                            <span class="top-markbox">
+                                <span class="top-markbar"></span>
+                            </span>
+                        </div>
+                        <div class="top-point">
+                            9999/<span style="color:#ccc">9999</span> 
+                        </div>
+                        <div class="top-maskbar">
+                            <hr>
+                        </div>
+                        <div class="top-buttonbox">
+                            <div class="top-button">
+                                <a href="#">
+                                    <i class="top-i top-i-u"></i>
+                                    <span>个人中心</span>
+                                </a>
+                            </div>
+                            <div class="top-button">
+                                <a href="#">
+                                    <i class="top-i top-i-m"></i>
+                                    <span>消息提醒</span>
+                                </a>
+                            </div>
+                            <div class="top-button">
+                                <a href="#">
+                                    <i class="top-i top-i-t"></i>
+                                    <span>我的帖子</span>
+                                </a>
+                            </div>
+                            <div class="top-button">
+                                <a href="#">
+                                    <i class="top-i top-i-f"></i>
+                                    <span>我的收藏</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="top-loginout">
+                            <a href="#"><span>注销</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="top-sign" style="display:block">
+                <a href="#"><span>登陆</span></a>
+                <span>|</span> 
+                <a href="#"><span>注册</span></a> 
+            </div>
+            <div class="top-searchbox">
+                <input id="top-search" list="top-autocomple" name="" value="">
+                <datalist id="top-autocomple">                    
+                    <option value="JasonBourne"></option>
+                    <option value="Well Smith"></option>
+                    <option value="Winter worth"></option>
+                    <option value="哈巴卵">habaluan</option>
+                    <option value="狗比">goubi</option>
+                </datalist>
+                <button type="button"></button>
+            </div>
+            
+        </div> 
+    </div>
     <div class=" container">
+        <div class=" topic-rows">
+            <div class="topic-headimg-box">
+                <div class="topic-headimg">
+                    <a href="#" alt="">
+                        <img src="resource/image/headimg.png" height="60" width="60" alt="">
+                    </a>
+                </div>
+                <div class="topic-details">
+                    <div class="topic-innerimg">
+                        <a href="#" alt="">
+                            <img src="resource/image/headimg.png"  height="60" width="60" alt="">
+                        </a>
+                    </div>
+                    <span class="topic-level">Lv.9</span>
+                    <span class="topic-name">Jason Bourne</span>
+                    <span class="topic-markbox"><span class="topic-markbar" style="width:60%"></span><span class="topic-mark">675/1000</span></span>
+                    <button id="takecare" type="button" onclick="takeCare(this,1000);">添加关注</button>
+                    <button type="button">和他私聊</button>
+                </div>
+            </div>
+            <div class="topic-content">
+                <div class="topic-title"><a href="#">震惊！男人看了沉默，女人看了流泪！</a></div>
+                <div class="topic-block">
+                    <div><a href="#">技术交流</a></div>
+                </div>
+                <div class="topic-time">
+                    <span>发帖时间:2017.07.06 14:27</span><span>最后回复:14分钟前</span>
+                </div>
+            </div>
+            <div class="topic-count">
+                <a href="#">24</a>
+            </div>
+        </div>
+        <div class=" topic-rows">
+            <div class="topic-headimg-box">
+                <div class="topic-headimg">
+                    <a href="#" alt="">
+                        <img src="resource/image/headimg.png" height="60" width="60" alt="">
+                    </a>
+                </div>
+                <div class="topic-details">
+                    <div class="topic-innerimg">
+                        <a href="#" alt="">
+                            <img src="resource/image/headimg.png"  height="60" width="60" alt="">
+                        </a>
+                    </div>
+                    <span class="topic-level">Lv.9</span>
+                    <span class="topic-name">Jason Bourne</span>
+                    <span class="topic-markbox"><span class="topic-markbar" style="width:60%"></span><span class="topic-mark">675/1000</span></span>
+                    <button id="takecare" type="button" onclick="takeCare(1);">添加关注</button>
+                    <button type="button">和他私聊</button>
+                </div>
+            </div>
+            <div class="topic-content">
+                <div class="topic-title"><a href="#">震惊！男人看了沉默，女人看了流泪！</a></div>
+                <div class="topic-block">
+                    <div><a href="#">技术交流</a></div>
+                </div>
+                <div class="topic-time">
+                    <span>发帖时间:2017.07.06 14:27</span><span>最后回复:14分钟前</span>
+                </div>
+            </div>
+            <div class="topic-count">
+                <a href="#">24</a>
+            </div>
+        </div>
         <div class=" topic-rows">
             <div class="topic-headimg-box">
                 <div class="topic-headimg">

@@ -11,7 +11,6 @@ go
 --用户信息表
 create table userinfo
 (
-	
 	--用户id
 	[uid] int not null identity(1000,1) primary key,
 	--用户名
@@ -40,27 +39,6 @@ create table userinfo
 	[tag] nvarchar(128)
 )
 go
---关注表
-create table care
-(
-	[cid] int not null identity(1,1) primary key,
-	--关注者
-	[me] int not null references userinfo(uid),
-	--被关注者
-	[who] int not null references userinfo(uid),
-	--备注
-	[tag] nvarchar(256)
-)
---收藏表
-create table favourite
-(
-	[fid] int not null identity(1,1) primary key,
-	--关注者
-	[uid] int not null references userinfo(uid),
-	--帖子
-	[tid] int not null references topic(tid) 
-)
-
 --版块表
 create table block
 (
@@ -102,7 +80,6 @@ create table topic
 	[uid] int not null references userinfo(uid),
 	--标题
 	[title] nvarchar(128) not null,
-	
 	--发帖时间
 	[toptime] datetime default(getdate()),
 	--点赞
@@ -256,10 +233,63 @@ create table messageUnread
 )
 go
 
+--关注表
+create table care
+(
+	[cid] int not null identity(1,1) primary key,
+	--关注者
+	[me] int not null references userinfo(uid),
+	--被关注者
+	[who] int not null references userinfo(uid),
+	--备注
+	[tag] nvarchar(256)
+)
+go
+--收藏表
+create table favourite
+(
+	[fid] int not null identity(1,1) primary key,
+	--关注者
+	[uid] int not null references userinfo(uid),
+	--帖子
+	[tid] int not null references topic(tid) 
+)
+go
+
 
 
 
 --发出一条帖子的存储过程
+
+go
+drop proc proc_addmark
+go
+create proc proc_addmark
+(@uid int,@mark int)
+as
+	begin tran
+	begin try
+		declare @m = select mark+@mark from userinfo where uid = @uid
+		declare @l = select 100*power(2,level) from userinfo where uid = @uid
+		if(@m>=@l)
+			update userinfo set level+=1,mark=@m-@l where uid = @uid
+		else
+			update userinfo set mark+=@mark where uid = @uid
+	end try
+	begin catch
+		select Error_number() as N'错误代码'
+			,Error_severity() as N'严重级别'
+			,Error_state() as N'状态码'
+			,Error_Procedure() as N'产生'
+			,Error_line() as N'行数'
+			,Error_message() as N'消息'
+		if(@@trancount>0)
+			rollback tran
+	end catch
+	if(@@trancount>0)
+		commit tran
+go
+
 
 go
 drop proc proc_creatTopic
@@ -268,8 +298,24 @@ create proc proc_creatTopic
 (@bid int,@uid int,@title nvarchar(128)
 ,@attach nvarchar(256),@tag nvarchar(128))
 as
-	insert into topic values
-	(@bid,@uid,@title,default,0,default,0,@attach,@tag)
+	begin tran
+	begin try
+		insert into topic values
+		(@bid,@uid,@title,default,0,default,0,@attach,@tag)
+		exec proc_addmark @uid,4
+	end try
+	begin catch
+		select Error_number() as N'错误代码'
+			,Error_severity() as N'严重级别'
+			,Error_state() as N'状态码'
+			,Error_Procedure() as N'产生'
+			,Error_line() as N'行数'
+			,Error_message() as N'消息'
+		if(@@trancount>0)
+			rollback tran
+	end catch
+	if(@@trancount>0)
+		commit tran
 go
 
 
@@ -287,6 +333,31 @@ as
 		(@bid,@tid,@sender,@content,default,0,@attach,@tag)
 		insert into reciveUnread values
 		(@reciver,@tid,CONVERT(int ,IDENT_CURRENT('recive')))
+		exec proc_addmark @uid,2
+	end try
+	begin catch
+		select Error_number() as N'错误代码'
+			,Error_severity() as N'严重级别'
+			,Error_state() as N'状态码'
+			,Error_Procedure() as N'产生'
+			,Error_line() as N'行数'
+			,Error_message() as N'消息'
+		if(@@trancount>0)
+			rollback tran
+	end catch
+	if(@@trancount>0)
+		commit tran
+go
+
+go
+drop proc proc_readRecive
+go
+create proc proc_readRecive
+(@ruid int)
+as
+	begin tran
+	begin try
+		delete from reciveUnread where ruid = @ruid
 	end try
 	begin catch
 		select Error_number() as N'错误代码'
@@ -303,6 +374,7 @@ as
 go
 
 
+
 --评论一条回帖的存储过程
 go
 drop proc proc_creatEvaluat
@@ -317,6 +389,7 @@ as
 		(@sender,@bid,@tid,@rid,@content,default,0,@attach,@tag)
 		insert into evaluatUnread values
 		(@reciver,@rid,CONVERT(int ,IDENT_CURRENT('evaluat')))
+		exec proc_addmark @sender,1
 	end try
 	begin catch
 		select Error_number() as N'错误代码'
@@ -350,6 +423,7 @@ as
 		(CONVERT(int,IDENT_CURRENT('evaluat')),@beid,@reciver)
 		insert into revaluatUnread values
 		(@reciver,CONVERT(int ,IDENT_CURRENT('revaluat')))
+		exec proc_addmark @sender,1
 	end try
 	begin catch
 		select Error_number() as N'错误代码'
@@ -511,46 +585,46 @@ go
 
 --当用户点击未读消息的时候查询未读的消息
 
-print N'----------未查看的回帖--------------'
-select su.username as N'发送者',re.username as N'接受者' 
-,t.title as N'你的帖子标题',r.content as N'回帖'
-from recive as r 
-inner join reciveUnread as ru on r.rid = ru.rid 
-inner join topic as t on t.tid = ru.tid
-inner join userinfo as su on r.uid = su.uid
-inner join userinfo as re on ru.uid = re.uid
-where ru.uid = 1002
+-- print N'----------未查看的回帖--------------'
+-- select su.username as N'发送者',re.username as N'接受者' 
+-- ,t.title as N'你的帖子标题',r.content as N'回帖'
+-- from recive as r 
+-- inner join reciveUnread as ru on r.rid = ru.rid 
+-- inner join topic as t on t.tid = ru.tid
+-- inner join userinfo as su on r.uid = su.uid
+-- inner join userinfo as re on ru.uid = re.uid
+-- where ru.uid = 1002
 
-print N'----------未查看的评论------------'
-select su.username as N'发送者',re.username as N'接受者'
-,r.content as '你的回帖',e.content as N'回复'
-from evaluat as e
-inner join evaluatUnread as eu on e.eid = eu.eid
-inner join recive as r on r.rid = eu.rid
-inner join userinfo as su on e.uid = su.uid
-inner join userinfo as re on eu.uid = re.uid
-where eu.uid = 1000
+-- print N'----------未查看的评论------------'
+-- select su.username as N'发送者',re.username as N'接受者'
+-- ,r.content as '你的回帖',e.content as N'回复'
+-- from evaluat as e
+-- inner join evaluatUnread as eu on e.eid = eu.eid
+-- inner join recive as r on r.rid = eu.rid
+-- inner join userinfo as su on e.uid = su.uid
+-- inner join userinfo as re on eu.uid = re.uid
+-- where eu.uid = 1000
 
 
-print N'----------未查看的回复------------'
-select su.username as N'发送者',re.username as N'接受者'
-,be.content as '你的评论',me.content as N'回复'
-from revaluat as r
-inner join revaluatUnread as ru on r.reid= ru.reid
-inner join evaluat as me on r.meid = me.eid
-inner join evaluat as be on r.beid = be.eid
-inner join userinfo as su on me.uid = su.uid
-inner join userinfo as re on be.uid = re.uid
-where ru.uid = 1001
+-- print N'----------未查看的回复------------'
+-- select su.username as N'发送者',re.username as N'接受者'
+-- ,be.content as '你的评论',me.content as N'回复'
+-- from revaluat as r
+-- inner join revaluatUnread as ru on r.reid= ru.reid
+-- inner join evaluat as me on r.meid = me.eid
+-- inner join evaluat as be on r.beid = be.eid
+-- inner join userinfo as su on me.uid = su.uid
+-- inner join userinfo as re on be.uid = re.uid
+-- where ru.uid = 1001
 
-print N'------------未查看的消息--------------'
-select se.username as N'发送者',re.username as N'接受者'
-,m.content as N'正文'
-from message as m 
-inner join messageUnread as mu on m.mid = mu.mid
-inner join userinfo as se on m.sender = se.uid
-inner join userinfo as re on m.reciver = re.uid
-where mu.uid = 1002
+-- print N'------------未查看的消息--------------'
+-- select se.username as N'发送者',re.username as N'接受者'
+-- ,m.content as N'正文'
+-- from message as m 
+-- inner join messageUnread as mu on m.mid = mu.mid
+-- inner join userinfo as se on m.sender = se.uid
+-- inner join userinfo as re on m.reciver = re.uid
+-- where mu.uid = 1002
 
 
 --根据topic 查询所有的回帖信息

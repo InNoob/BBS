@@ -10,6 +10,7 @@
 <script type="text/javascript" src="resource/js/topic.js"></script>
 </head>
 <body>
+<jsp:include page="toppanel.jsp"></jsp:include>
 <div class="container">
 <tpc:topic title="hello world" uid="1" tid="1" level="2" mark="329" headimg="resource/image/headimg.png" block="技术交流" bid="1" tpcTime="2017-01-06 17:30:50.353" rcvTime="2017-04-06 17:30:50.524" tpcUname="jason bourne" count="1"/>
 <tpc:topic title="震惊" uid="1" tid="1" level="1" mark="129" headimg="" block="日常生活" bid="1" tpcTime="2017-01-06 17:30:50.11" rcvTime="2017-07-06 17:30:50.234" tpcUname="jason" count="57"/>

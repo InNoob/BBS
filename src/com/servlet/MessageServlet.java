@@ -9,19 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.TakeCareDao;
-
 /**
- * Servlet implementation class TakeCareServlet
+ * Servlet implementation class MessageServlet
  */
-@WebServlet("/TakeCareServlet")
-public class TakeCareServlet extends HttpServlet {
+@WebServlet("/MessageServlet")
+public class MessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TakeCareServlet() {
+    public MessageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,14 +39,11 @@ public class TakeCareServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		int who = Integer.valueOf( request.getParameter("uid"));
-		int me = (int)request.getSession().getAttribute("user");
-		TakeCareDao dao = new TakeCareDao();
-		if(dao.takeCare(me, who)) {
-			out.print("已关注");
-		}
-		out.flush();
-		out.close();
+		
+		
+		
+		
+		
 	}
 
 }
