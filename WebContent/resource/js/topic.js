@@ -16,7 +16,7 @@ function AddListener(element,event,handle){
 var server;
 
 // onreadystatchange的回调控制器
-function loadAjax(url,method,callback){
+function loadAjax(url,callback){
     // 浏览器兼容
     if(window.XMLHttpRequest)
         server = new XMLHttpRequest();
@@ -24,14 +24,35 @@ function loadAjax(url,method,callback){
         server = new ActiveXObject('Microsoft.XMLHTTP');
     //绑定事件 
     AddListener(server,'readystatechange',callback);
-    server.open(method,url,true);
+    server.open('GET',url,true);
     server.send();
 }
+//onreadystatchange的回调控制器 post
+function loadAjaxPost(url,callback){
+    // 浏览器兼容
+    if(window.XMLHttpRequest)
+        server = new XMLHttpRequest();
+    else
+        server = new ActiveXObject('Microsoft.XMLHTTP');
+    //绑定事件 
+    AddListener(server,'readystatechange',callback);
+    server.open('POST',url,true);
+    server.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    server.send();
+}
+
+
 
 // 关注方法
 function takeCare(e,uid){
     // 注册回调
-    loadAjax('TakeCareServlet?uid='+uid,'GET',function () {
+	var url;
+	if(e.innerText =="已关注"){
+		url='TakeCareServlet?uid='+uid+'&care=1';
+	}else{
+		url='TakeCareServlet?uid='+uid+'&care=0';
+	}
+    loadAjax(url,function () {
         if(server.readyState== 4&&server.status== 200)
         e.innerText = server.responseText;
     });

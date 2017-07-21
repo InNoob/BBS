@@ -1,0 +1,56 @@
+.container{
+	width:100%;
+}
+.followershead{
+	height:100%;
+	width:100%;
+	border-radius: 100px;
+}
+.followershead-box{
+	height: 80px;
+	width: 80px;
+	border-radius: 100px;
+	border: 1px solid  black;
+	float: left;
+}
+.followers-box{
+	height: 81px;
+	width: 900px;
+	margin:auto;
+	border-bottom: 1px solid black;
+}
+.followersinfo{
+	/*border: 1px solid white;*/
+	width: 33%;
+	height: 100%;
+	float:left;
+}
+.nameandgender{
+	height: 100%;
+	width: 55%;
+	float: left;
+}
+.genders{
+	height: 35%;
+	width: 100%;
+	/*margin: auto;*/
+	/*border: 1px solid  black;*/
+}
+#username{
+	width:100%;
+	height: 65%;
+	text-align: center;
+	/*border: 1px solid black;*/
+	font-weight: bold;
+}
+#level{
+	text-align: center;
+	width:100%;
+	height: 50%;
+	line-height: 80px;
+}
+#followdetails{
+	border: 1px solid  ;
+	margin: 30px 60px;
+	background: white;
+}

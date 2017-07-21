@@ -10,39 +10,87 @@
     <body-content>empty</body-content>
 	<attribute>
 		<name>uid</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>int</type>
 	</attribute>
 	<attribute>
 		<name>tid</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>int</type>
 	</attribute>
 	<attribute>
 		<name>bid</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>int</type>
 	</attribute>
 	<attribute>
 		<name>mark</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>long</type>
 	</attribute>
 	<attribute>
 		<name>level</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>int</type>
+	</attribute>
+	<attribute>
+		<name>stat</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>int</type>
 	</attribute>
 	<attribute>
 		<name>title</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>String</type>
 	</attribute>
 	<attribute>
 		<name>headimg</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>String</type>
 	</attribute>
 	<attribute>
 		<name>block</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>String</type>
 	</attribute>
 	<attribute>
 		<name>tpcUname</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>String</type>
 	</attribute>
 	<attribute>
 		<name>tpcTime</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>String</type>
 	</attribute>
 	<attribute>
 		<name>rcvTime</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>String</type>
 	</attribute>
 	<attribute>
 		<name>count</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>int</type>
+	</attribute>
+	<attribute>
+		<name>care</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+		<type>int</type>
 	</attribute>
 	
   </tag>

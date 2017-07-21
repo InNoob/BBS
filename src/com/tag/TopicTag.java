@@ -13,18 +13,20 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 public class TopicTag extends SimpleTagSupport{
 
 	private int uid;
-	private int bid;
-	private int tid;
 	private String title;
+	private String titleUrl;
 	private String headimg;
+	private String userinfoUrl;
 	private int level;
 	private long mark;
 	private int stat;
 	private String block;
+	private String blockUrl;
 	private String tpcUname;
 	private String tpcTime;
 	private String rcvTime;
 	private int count;
+	private int care;
 	
 	public void doTag() throws JspException,IOException{
 		JspWriter out = getJspContext().getOut();
@@ -33,34 +35,34 @@ public class TopicTag extends SimpleTagSupport{
 				StringBuilder sb = new StringBuilder("<div class=\" topic-rows\">\n")
 				.append("<div class=\"topic-headimg-box\">\n").append( 
 				"            <div class=\"topic-headimg\">\n").append( 
-				"                <a href=\"UserinfoServlet?uid=").append(uid).append("\" title=\"").append(tpcUname).append("\">\n").append(
+				"                <a href=\"").append(userinfoUrl).append("\" title=\"").append(tpcUname).append("\">\n").append(
 				"                    <img src=\"").append(headimg).append("\" height=\"60\" width=\"60\" alt=\"\">\n").append( 
 				"                </a>\n").append( 
 				"            </div>\n").append( 
 				"            <div class=\"topic-details\">\n").append(
 				"                <div class=\"topic-innerimg\">\n").append(
-				"                    <a href=\"UserinfoServlet?uid=").append(uid).append("\" title=\"").append(tpcUname).append("\">\n").append(
+				"                    <a href=\"").append(userinfoUrl).append("\" title=\"").append(tpcUname).append("\">\n").append(
 				"                        <img src=\"").append(headimg).append("\"  height=\"60\" width=\"60\" alt=\"\">\n").append( 
 				"                    </a>\n").append( 
 				"                </div>\n").append(
 				"                <span class=\"topic-level\">Lv.").append(level).append("</span>\n").append(
 								"<span class=\"topic-name\">").append(tpcUname).append("</span>").append(
 				"                <span class=\"topic-markbox\"><span class=\"topic-markbar\" style=\"width:").append((mark*100)/levmark).append("%\"></span><span class=\"topic-mark\">").append(mark).append("/").append(levmark).append("</span></span>\n").append( 
-				"                <button type=\"button\" onclick=\"takeCare(this,").append(uid).append(");\" >添加关注</button>").append( 
-				"                <a href=\"TalkServlet?uid=").append(uid).append("\"><button type=\"button\" onclick=\"takeCare();\" >和他私聊</button></a>").append( 
+				"                <button type=\"button\" onclick=\"takeCare(this,"+uid+")\">").append(care>0?"已":"添加").append("关注</button>").append( 
+				"                <a href=\"").append("ajax").append("\"> <button type=\"button\">和他私聊</button></a>").append( 
 				"            </div>\n").append( 
 				"        </div>\n").append( 
 				"        <div class=\"topic-content\">").append( 
-				"            <div class=\"topic-title\"><a href=\"TopicSrvlet?tid=").append(tid).append("\">").append(title).append("</a></div>\n").append( 
+				"            <div class=\"topic-title\"><a href=\"").append(titleUrl).append("\">").append(title+"<font size='2'>"+(stat>1?"&nbsp;<font color='blue'>[顶]</font>":stat>0?"<font color='red'>&nbsp;[精]</font>":"</font>")).append("</a></div>\n").append( 
 				"            <div class=\"topic-block\">\n").append( 
-				"                <div><a href=\"BlockServlet?bid=").append(bid).append("\">").append(block).append("</a></div>\n").append( 
+				"                <div><a href=\"").append(blockUrl).append("\">").append(block).append("</a></div>\n").append( 
 				"            </div>\n").append( 
                 "                <div class=\"topic-time\">\n").append( 
                 "                    <span>发帖时间:").append(tpcTime).append("</span><span>最后回复:").append(rcvTime).append("</span>").append(
                 "                </div>").append(
 				"        </div>\n").append( 
 				"        <div class=\"topic-count\">\n").append( 
-				"            <a href=\"TopicSrvlet?tid=").append(tid).append("\">").append(count).append("</a>\n").append( 
+				"            <a href=\"").append(titleUrl).append("\">").append(count).append("</a>\n").append( 
 				"        </div>\n").append( 
 				"    </div>");
         
@@ -68,15 +70,16 @@ public class TopicTag extends SimpleTagSupport{
 		}
 	}
 	public void setUid(int uid) {
-		this.uid = uid;
+		this.uid=uid;
+		this.userinfoUrl = new StringBuilder("DoGetUserDetails?uid=").append(uid).toString();
 	}
 	
 	public void setBid(int bid) {
-		this.bid = bid;
+		this.blockUrl = new StringBuilder("ServletBlock?bid=").append(bid).toString();
 	}
 	
 	public void setTid(int tid) {
-		this.tid = tid;
+		this.titleUrl = new StringBuilder("SelectTopicByIdServlet?tid=").append(tid).toString();
 	}
 	
 	public void setLevel(int level) {
@@ -112,7 +115,7 @@ public class TopicTag extends SimpleTagSupport{
 
 	public void setRcvTime(String rcvTime){
 		try {
-			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+			SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 			String fromDate = simpleFormat.format(simpleFormat.parse(rcvTime));
 			String toDate = simpleFormat.format(new Date());
 			Date form = simpleFormat.parse(fromDate);
@@ -129,5 +132,11 @@ public class TopicTag extends SimpleTagSupport{
 	}
 	public void setCount(int count){
 		this.count=count;
+	}
+	public void setStat(int stat){
+		this.stat=stat;
+	}
+	public void setCare(int care){
+		this.care=care;
 	}
 }

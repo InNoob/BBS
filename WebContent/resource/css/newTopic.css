@@ -1,0 +1,42 @@
+.block_item span{
+	display:inline-block;
+}
+.block_item input[type=radio]{
+	display:inline-block;
+}
+#overall{
+	font-family:"微软雅黑";
+	margin:120px auto;
+	width:1110px;
+}
+#block{
+	margin:20px auto;
+}
+.block_item label{
+	cursor: pointer;
+}
+.block_item{
+	margin-left: 10%;
+}
+
+.high{
+	height: 20px;
+}
+
+.topic_title{
+	float: left;
+	color:black;
+	font-size: 25px;
+}
+
+#title{
+	height:30px;
+	font-size:20px;
+	width:450px;
+	border:0;
+	border-bottom:2px solid grey;
+	transition:0.3s;
+}
+#title:hover{
+	border-bottom:2px solid blue;
+}

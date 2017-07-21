@@ -1,0 +1,348 @@
+.header{
+    /*border: 1px solid  black;*/
+    height: 80px;
+    background: rgb(36,41,46);
+}
+.containe{
+    /*border: 1px solid red;*/
+    /*margin-top:100px;*/
+    height:100%;
+    width: 100%;
+    
+}
+body{
+    font-family: "Microsoft YaHei";
+    font-size: 18px;
+    background:lightblue;
+    
+}
+.main{
+    margin: auto;
+    width: 900px;
+    height: 100%;
+    background: inherit;
+    /*border:1px solid black;*/
+    /*box-shadow: 0px 3px 5px rgba(0, 0, 0,0.6);*/
+}
+
+.portrait-box{
+    /*border: 1px solid red;*/
+    width: 170px;
+    margin-left: 15px;
+    /*margin: 20px;*/
+    margin-top: 15px;
+    float: left;
+}
+.img-box{
+    /*border: 1px solid black;*/
+    /*float: left;*/
+    height: 165px;
+    width:165px;   
+    margin: auto;
+}
+._img_ring{
+    /*border: 1px solid black;*/
+    height: 165px;
+    width:165px;   
+    border-radius: 120px;
+}
+._img{
+    height: 165px;
+    width:165px;   
+    border-radius: 120px;
+}
+.username-box{
+   /* border: 1px solid: ; ;*/
+    text-align: center;
+    margin-top: 15px;
+    height: 30px;
+    font-size:20px;
+    font-weight: bold;
+    /*margin-left: -20px;*/
+}
+.level{
+    text-align: center;
+    /*border: 1px solid black;*/
+    margin-top:22.5px;
+    height: 30px;
+}
+.mark{
+    /*border: 1px solid black;*/
+    text-align: center;
+    margin-top: 7.5px;
+    height: 45px;
+}
+.details-block{
+    transition: .3s;
+    background: rgb(250, 251, 252);
+    border-radius: 7.5px;
+      /*border: 1px solid black;*/
+      transition:.3s;
+    height: 360px;
+    width: 870px;
+    margin: 15px;
+    margin-top: 1.5%;   
+}
+.details-block:hover{
+	transform:translateY(-10px);
+	box-shadow:5px 5px 15px rgba(0,0,0,.5);
+}
+
+.info-box{
+    /*border: 1px solid blue;*/
+    float: left;
+    height: 262.5px;
+    width:540px;
+    margin-left: 30px;
+    margin-top: 15px;
+}
+.introduction-block{
+     transition: .3s;
+    background: rgb(250, 251, 252);
+    border-radius: 7.5px;
+      /*border: 1px solid black;*/
+      transition:.3s;
+    height:525px;
+    width: 870px;
+    margin: 15px;
+    margin-top: 1.5%;   
+}
+.introduction-block:hover{
+	transform:translateY(-10px);
+	box-shadow:5px 5px 15px rgba(0,0,0,.5);
+}
+.topic-block{
+	    transition: .3s;
+    background: rgb(250, 251, 252);
+    border-radius: 15px;
+      /*border: 1px solid black;*/
+      transition:.3s;
+    height: 150px;
+    width: 870px;
+    margin: 15px;
+    margin-top: 1.5%;   
+}
+.topic-block:hover{
+	transform:translateY(-10px);
+	box-shadow:5px 5px 15px rgba(0,0,0,.5);
+}
+
+.details-table{
+    /*border: 1px solid black;*/
+    border-spacing: 0;
+    border-collapse: 0;
+    height: 100%;
+    width: 80%;
+    margin: auto;
+}
+
+input{
+    border: 0px;
+    background: inherit;
+}
+.left-td{
+    text-align: left;
+width: 135px;
+height: 30px;
+}
+.whatup-box{
+    height: 55%;
+    width: 100%;
+    /*border: 1px solid black;*/
+}
+.whatup-titlebox{
+    height: 15%;
+    /*border: 1px solid black;*/
+}
+.whatup-title{
+    padding: 7.5px;
+    width: 120px;
+    /*border: 1px solid green;*/
+    margin-left: 3%;
+}
+.whatup-content-box{
+    height: 85%;
+    /*border: 1px solid red;*/
+}
+.whatup-content{
+    margin: auto;
+    height: 95%;
+    width: 95%;
+}
+.whatup{
+    height: 100%;
+    width:100%;
+    background: white;
+    color: black;  
+}
+
+
+.tag-box{
+    height: 20%;
+    width: 100%;
+    /*border: 1px solid black;*/
+}
+.tag-titlebox{
+    height: 25%;
+    /*border: 1px solid black;*/
+}
+.tag-title{
+    padding: 5px;
+    width: 120px;
+    /*border: 1px solid green;*/
+    margin-left: 3%;
+}
+.tag-content-box{
+    height: 75%;
+    /*border: 1px solid red;*/
+}
+.tag-content{
+    margin: auto;
+    height: 95%;
+    width: 95%;
+}
+.tag{
+    background: white;
+    height: 100%;
+    width:100%;
+    color: black;  
+}
+.followers-box{
+    height: 20%;
+    width: 40%;
+    /*border: 1px solid black;*/
+    float: left;
+    margin-left: 5%;
+}
+.following-box{
+    height: 20%;
+    width: 40%;
+    /*border: 1px solid black;*/
+    float: left;
+    margin-left: 5%;
+    float: left;
+}
+
+.followlogo-box{
+    /*border: 1px solid black;*/
+    height: 100%;
+    width:40%;
+    float: left;
+}
+.followlogo{
+    margin-top:35px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    /*border: 1px solid black;*/
+    width:100%;
+}
+
+.infotext{
+    background: inherit;
+    color: black;  
+    width:100%;
+    float:left;
+    border-bottom:1px solid grey;
+}
+#username{
+    text-align: center;
+}
+.followcount-box{
+    /*border: 1px solid black;*/
+    height: 100%;
+    width:58%;
+    float: right;
+}
+.followcount{
+    /*border:1px solid black;*/
+    width: 100%;
+    height: 30px;
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    margin-top: -15px;
+    top:50%;
+text-align: center;
+}
+
+.logo{
+    height:50px;
+    width: 60px;
+    /*border: 1px solid black;*/
+    margin-top: -25px;
+    top: 50%;
+    position: relative;
+    float: left;
+}
+.count-box{
+    /*border: 1px  solid black;*/
+    height: 100%;
+    width: 70%;
+    float: left;
+}
+.approval-box{
+    float: left;
+    height: 100%;
+    width:30%;
+    /*border: 1px solid black;*/
+}
+.topic-box{
+    float: left;
+    height: 100%;
+    width: 30%;
+    /*border: 1px solid black;*/
+    margin-left: 7%;
+}
+.collection-box{
+      float: left;
+    height: 100%;
+    width: 30%;
+    /*border: 1px solid black;*/
+}
+.topiccount{
+    /*border: 1px solid black;*/
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;    
+    top: 50%;
+    position: relative;
+    margin-top:-17.5px;
+    height: 35px;
+    line-height: 35px;
+}
+.followcount a{
+    color: rgb(44, 44, 44);
+}
+.topiccount a{
+    color: rgb(44, 44, 44);
+}
+.link{
+    transition: .3s;
+}
+.link:hover{
+    color: blue;
+}
+
+.markbar-box{
+   background:pink; 
+height: 5px;
+margin-top:30px ;
+margin-left: 45px;
+width: 790px;
+float:left;
+/*border: 1px solid black;*/
+}
+#changeinfo{
+	border:1px solid black;
+	background:inherit;
+	float:right;
+	transition:.3s;
+}
+#changeinfo:hover{
+	background:grey;
+}
+#uid{
+	width:40%;
+}

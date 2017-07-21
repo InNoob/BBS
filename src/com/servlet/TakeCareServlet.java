@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//import com.bean.LoginUser;
+import com.bean.User;
 import com.dao.TakeCareDao;
 
 /**
@@ -42,10 +44,24 @@ public class TakeCareServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		int who = Integer.valueOf( request.getParameter("uid"));
-		int me = (int)request.getSession().getAttribute("user");
+		int care = Integer.valueOf( request.getParameter("care"));
+		User u = new User();
+		if(null!=request.getSession().getAttribute("user")){
+			u = (User)request.getSession().getAttribute("user");
+		}else{
+			out.println("请登录");
+			return;
+		}
 		TakeCareDao dao = new TakeCareDao();
-		if(dao.takeCare(me, who)) {
-			out.print("已关注");
+		System.out.println(dao.checkCare(u.getUid(), who));
+		if(care==0){
+			if(dao.takeCare(u.getUid(), who)) {
+				out.print("已关注");
+			}
+		}else{
+			if(dao.unCare(u.getUid(), who)) {
+				out.print("添加关注");
+			}
 		}
 		out.flush();
 		out.close();

@@ -1,0 +1,219 @@
+.container {
+    height: auto;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
+    min-height: 50%;
+    min-width: 50%;
+    margin: auto;
+}
+
+.content {
+    height: 424px;
+    max-width: 370px;
+    color: black;
+    border-radius: 5px;
+    background: #fff;
+    padding: 40px 40px 36px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .3);
+    margin: auto;
+}
+
+#logo {
+    width: 100%;
+    height: 35px;
+    display: block;
+}
+
+#title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    padding-top: 16px;
+}
+
+#head-text {
+    padding-top: 1px;
+    padding-bottom: 3px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.inputtext-box {
+    width: 100%;
+    height: 50px;
+    padding-top: 24px;
+}
+
+.intputtext {}
+
+.input-text {
+    height: 30px;
+    width: 100%;
+    font-size: 18px;
+    margin-top: 20px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+
+.lbl-boxmark {
+    width: 100%;
+    display: block;
+    color: #757575;
+    /*font-family: 'Microsoft YaHei', 'Roboto','Arial';*/
+    /*font-family: 'Roboto';*/
+    font-size: 17px;
+    transition: 0.3s;
+    transform: translateY(-25px);
+}
+
+.lbl-boxmark-onhold {
+    width: 100%;
+    display: block;
+    color: rgb(66, 133, 244);
+    /*font-family: 'Roboto';*/
+    /*font-family: 'Microsoft YaHei', 'Roboto','Arial';*/
+    transition: 0.3s;
+    font-size: 14px;
+    transform: translateY(-55px);
+}
+
+.underline {
+    width: 0%;
+    transition: 0.4s;
+    transform: translate3d(0, -2px, 0);
+    border-bottom: 2px solid rgb(66, 133, 244);
+    margin: auto;
+}
+
+.underline-onhold {
+    width: 100%;
+    transition: 0.4s;
+    transform: translate3d(0, -2px, 0);
+    border-bottom: 2px solid rgb(66, 133, 244);
+    margin: auto;
+}
+
+.loginbox {
+    width: 100%;
+    height: 36px;
+    margin-top: 48px;
+}
+
+#more-list {
+    width: 250px;
+    height: 36px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+#more {
+    height: 36px;
+    /*width: 60px;*/
+    line-height: 30px;
+    font-size: 14px;
+    color: #4285f4;
+    background: transparent;
+    float: left;
+    margin-right: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    cursor: pointer
+}
+
+#more:focus+.otheroption {
+    opacity: 1;
+    width: 250px;
+    margin-top: -10px;
+    position: fixed;
+   	transition: 0.8s;
+    /*transition-delay: .8s;*/
+    display: block;
+}
+#btnlogin {
+    height: 36px;
+    width: 88px;
+    color: #fff;
+    font-size: 18px;
+    /*display: inline-block;*/
+    float: right;
+    background: rgb(66, 133, 244);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, .2);
+    cursor: pointer;
+}
+
+.otheroption {
+    opacity: 0;
+    height: 118px;
+    width: 150px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    margin-top: 35px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, .4);
+    border-radius: 3px;
+    background: white;
+    z-index: 9999;
+    position: fixed;
+    transition-delay: 0.8s;
+    transition: .3s;
+} 
+.option {
+    width: 200px;
+    height: 40px;
+    color: #222;
+    padding: 0 25px;
+    font-family: 'Microsoft YaHei','Roboto', 'Arial';
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 40px;
+}
+
+.option:hover {
+    background: rgba(0, 0, 0, .1);
+}
+
+.language-Help {
+    height: 40px;
+    width: 450px;
+    max-width: 450px;
+    color: black;
+    margin: 0 auto;
+    padding-top: 20px;
+    font-size: 12px;
+}
+
+#international-list {
+    display: inline-block;
+    background: transparent;
+    border: 0;
+}
+
+#help {
+    display: inline-block;
+    /*float: right;*/
+}
+.logoword{
+    margin:0;
+    border:0;
+    outline:0;
+    float:left;
+    /*display: inline-flex;*/
+    font-weight:500;
+    font-size:30px;
+    font-family:'Microsoft YaHei';
+}
+
+#message{
+	float: right;
+	margin-top:5px;
+	color: red;
+}
+
+/*animation: quantumWizPaperInputRemoveUnderline .3s cubic-bezier(0.4,0,0.2,1);*/
